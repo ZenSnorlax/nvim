@@ -3,39 +3,42 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 
 -- Python LSP
 require('lspconfig').pyright.setup{
-	capabilities = capabilities,
+    capabilities = capabilities,
 }
 
 -- C/C++ LSP
 require('lspconfig').clangd.setup{
-	capabilities = capabilities,
+    capabilities = capabilities,
 }
 
+-- Rust LSP with rust-tools
 require('rust-tools').setup {
-	tools = {
-		autoSetHints = true,
-		inlay_hints = {
-			show_variable_name = true,
-			show_parameter_hints = true,
-			highlight = "LspInlayHint",
-			parameter_hints_prefix = "🛈 ",
-			variable_hints_prefix = "🡕 ",
-			other_hints_prefix = "🞂 ",
-		},
-	},
+    tools = {
+        autoSetHints = true,
+        inlay_hints = {
+            show_variable_name = true,
+            show_parameter_hints = true,
+            highlight = "LspInlayHint",
+            parameter_hints_prefix = "🛈 ",
+            variable_hints_prefix = "🡕 ",
+            other_hints_prefix = "🞂 ",
+        }
+     
+},
 }
--- Commands:
--- RustEnableInlayHints
--- RustDisableInlayHints
--- RustSetInlayHints
--- RustUnsetInlayHints
-
--- Set inlay hints for the current buffer
-require('rust-tools').inlay_hints.set()
--- Unset inlay hints for the current buffer
-require('rust-tools').inlay_hints.unset()
-
--- Enable inlay hints auto update and set them for all the buffers
-require('rust-tools').inlay_hints.enable()
--- Disable inlay hints auto update and unset them for all buffers
-require('rust-tools').inlay_hints.disable()
+--lua
+require('lspconfig').lua_ls.setup({
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = {'vim'},  -- 允许使用vim全局变量
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),  -- 添加运行时库
+            },
+            telemetry = {
+                enable = false,  -- 禁用遥测
+            },
+        },
+    },
+})
