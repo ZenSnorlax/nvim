@@ -1,5 +1,5 @@
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = { "python" }, -- 确保安装 Python 解析器
+    ensure_installed = { "python" ,"cpp","c", "rust"}, 
     highlight = {
         enable = true,              -- 启用高亮
         additional_vim_regex_highlighting = false,
